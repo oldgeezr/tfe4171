@@ -1,0 +1,52 @@
+***********************************************************
+Simulation Log - ANSWERS
+***********************************************************
+
+/* +define+overlap
+
+		Q: WHY DOES THE PROPERTY FAIL at 30?
+    A: Because the consequent (req ##2 gnt) is not asserted.
+    Both req and gnt is deasserted.
+
+		Q: WHY DOES THE PROPERTY PASS at 90?
+    A: At time 90 the property has been covered. It
+    only cares if the property has previously
+    happened.
+
+		Q: WHY DOES THE PROPERTY PASS at 150?
+    A: Same answer as the previous answer, but we
+    notice that the signals are correct as oppose to
+    previously.
+
+		Q: WHY DOES THE PROPERTY FAIL at 170?
+    A: It fails because gnt is not asserted at this
+    time stamp even though req was asserted 2 CC earlier.
+
+		Q: WHY DOES THE PROPERTY FAIL at 190?
+    A: At time stamp 150 cstart and req is asserted
+    which should imply the asserion of gnt at time stamp
+    190.
+
+/* +define+nonoverlap
+
+		Q: WHY DOES THE PROPERTY FAIL at 70?
+    A: It fails because cstart is asserted at time
+    stamp 50 which implies that req should be
+    asserted at time stamp 70.
+
+		Q: WHY DOES THE PROPERTY PASS at 90?
+    A: It passes because cstart is asserted at 30, req is
+    asserted at 50 and gnt is asserted at 90. The property
+    is then covered.
+
+		Q: WHY DOES THE PROPERTY FAIL at 170?
+    A: It failes because cstart is asserted at 110, req
+    is asserted at 130 but gnt is not asserted at 170.
+
+		Q: WHY DOES THE PROPERTY FAIL at 190?
+    A: It failes because cstart is asserted at 130, req
+    is asserted at 150 but gnt is not asserted at 190.
+
+		Q: WHY DOES THE PROPERTY PASS at 210?
+    A: It passes because cstart is asserted at 150, req
+    is asserted at 170 and gnt is asserted at 210.
