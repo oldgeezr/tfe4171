@@ -1,5 +1,5 @@
-# vsim -assertdebug -coverage -c test_fifo -l test_fifo_nobugs.log -do " run -all; quit" 
-# Start time: 11:15:19 on Jan 30,2015
+# vsim -assertdebug -coverage -c test_fifo -l test_fifo_check7.log -do " run -all; quit" 
+# Start time: 11:34:18 on Jan 30,2015
 # ** Note: (vsim-3812) Design is being optimized...
 # //  Questa Sim
 # //  Version 10.3c_2 linux Sep 24 2014
@@ -13,6 +13,7 @@
 # //
 # Loading sv_std.std
 # Loading work.test_fifo(fast)
+# ** Warning: (vsim-8492) The -assertdebug option was specified but there are no accessible objects.
 # ** Warning: (vsim-8634) Code was not compiled with coverage options.
 #  run -all
 #          5  rst_=1 clk=1 fifo_write=0 fifo_read=0 fifo_full=x fifo_empty=x wr_ptr=x rd_ptr=x cnt=x
@@ -39,10 +40,12 @@
 #        215  rst_=1 clk=1 fifo_write=0 fifo_read=1 fifo_full=0 fifo_empty=0 wr_ptr=8 rd_ptr=7 cnt=1
 #        225  rst_=1 clk=1 fifo_write=0 fifo_read=1 fifo_full=0 fifo_empty=1 wr_ptr=8 rd_ptr=8 cnt=0
 #        235  rst_=1 clk=1 fifo_write=0 fifo_read=1 fifo_full=0 fifo_empty=1 wr_ptr=8 rd_ptr=8 cnt=0
+#        235		 WARNING::read_on_empty_fifo condition
+# 
 #        245  rst_=1 clk=1 fifo_write=0 fifo_read=1 fifo_full=0 fifo_empty=1 wr_ptr=8 rd_ptr=8 cnt=0
 # ** Note: Data structure takes 4685872 bytes of memory
 #          Process time 0.00 seconds
 #          $finish    : test_fifo.sv(24)
 #    Time: 245 ns  Iteration: 1  Instance: /test_fifo
-# End time: 11:15:22 on Jan 30,2015, Elapsed time: 0:00:03
-# Errors: 0, Warnings: 1
+# End time: 11:34:24 on Jan 30,2015, Elapsed time: 0:00:06
+# Errors: 0, Warnings: 2

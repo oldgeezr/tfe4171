@@ -1,5 +1,5 @@
 # vsim -assertdebug -coverage -c test_fifo -l test_fifo_check1.log -do "run -all; quit" 
-# Start time: 18:53:02 on Jan 27,2015
+# Start time: 11:16:17 on Jan 30,2015
 # ** Note: (vsim-3812) Design is being optimized...
 # //  Questa Sim
 # //  Version 10.3c_2 linux Sep 24 2014
@@ -49,5 +49,5 @@
 #          Process time 0.01 seconds
 #          $finish    : test_fifo.sv(24)
 #    Time: 245 ns  Iteration: 1  Instance: /test_fifo
-# End time: 18:53:05 on Jan 27,2015, Elapsed time: 0:00:03
+# End time: 11:16:20 on Jan 30,2015, Elapsed time: 0:00:03
 # Errors: 0, Warnings: 2

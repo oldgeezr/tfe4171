@@ -29,7 +29,8 @@ check_resetP: assert property (check_reset) else $display($stime,"\t\t FAIL::che
 //      ------------------------------------------
 `ifdef check2
 property fifoempty;
-  @(posedge clk) disable iff !rst_ `cnt==0 |-> fifo_empty;
+  @(posedge clk) disable iff (!rst_) `cnt==0 |-> fifo_empty;
+endproperty
 fifoemptyP: assert property (fifoempty) else $display($stime,"\t\t FAIL::fifo_empty condition\n");
 `endif
 
@@ -39,7 +40,7 @@ fifoemptyP: assert property (fifoempty) else $display($stime,"\t\t FAIL::fifo_em
 //      ------------------------------------------
 `ifdef check3
 property fifofull;
-  @(posedge clk) disable iff !rst_ `cnt>7 |-> fifo_full;
+  @(posedge clk) disable iff (!rst_) `cnt>7 |-> fifo_full;
 endproperty
 fifofullP: assert property (fifofull) else $display($stime,"\t\t FAIL::fifo_full condition\n");
 `endif

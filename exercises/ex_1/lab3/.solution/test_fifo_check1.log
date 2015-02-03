@@ -2,10 +2,10 @@ run -all
 KERNEL:          5  rst_=1 clk=1 fifo_write=0 fifo_read=0 fifo_full=x fifo_empty=x wr_ptr=x rd_ptr=x cnt=x
 KERNEL:         15  rst_=0 clk=1 fifo_write=0 fifo_read=0 fifo_full=0 fifo_empty=x wr_ptr=0 rd_ptr=0 cnt=0
 KERNEL:         15		 FAIL::check_reset
-KERNEL: 
+KERNEL:
 KERNEL:         25  rst_=0 clk=1 fifo_write=0 fifo_read=0 fifo_full=0 fifo_empty=x wr_ptr=0 rd_ptr=0 cnt=0
 KERNEL:         25		 FAIL::check_reset
-KERNEL: 
+KERNEL:
 KERNEL:         35  rst_=1 clk=1 fifo_write=0 fifo_read=0 fifo_full=0 fifo_empty=x wr_ptr=0 rd_ptr=0 cnt=0
 KERNEL:         45  rst_=1 clk=1 fifo_write=1 fifo_read=0 fifo_full=0 fifo_empty=x wr_ptr=0 rd_ptr=0 cnt=0
 KERNEL:         55  rst_=1 clk=1 fifo_write=1 fifo_read=0 fifo_full=0 fifo_empty=0 wr_ptr=1 rd_ptr=0 cnt=1
