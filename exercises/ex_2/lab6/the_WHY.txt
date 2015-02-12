@@ -1,0 +1,36 @@
+/*
+ * The WHY it works
+ */
+
+1.
+        property checkPCI_AD_CBE;
+          @(negedge FRAME_) disable iff (!reset_)
+		      $fell(FRAME_) |-> !$isunknown(AD) && !$isunknown(C_BE_);
+        endproperty
+
+        This property triggers @ the negative edge of the FRAME_ checks is the
+        FRAME_ fell (Not necessary. Could just check if FRAME is asserted
+        LOW). If this event is present, then both AD and C_BE_ should be
+        asserted LOW.
+2.
+        property checkPCI_DataPhase;
+          @(posedge clk) disable iff (!reset_)
+		      !IRDY_ && !TRDY_ |-> !$isunknown(AD) && !$isunknown(C_BE_);
+        endproperty
+
+
+3.
+        property checkPCI_Frame_Irdy;
+          @(posedge clk) disable iff (!reset_)
+		      IRDY_ |-> $rose(FRAME_);
+        endproperty
+4.
+        property checkPCI_trdyDevsel;
+          @(negedge TRDY_) disable iff (!reset_)
+           !TRDY_ |-> !DEVSEL_;
+        endproperty
+5.
+        property checkPCI_CBE_during_trx;
+          @(posedge FRAME_) disable iff (!reset_)
+          FRAME_ |-> $stable(C_BE_) until_with !FRAME_;
+        endproperty

@@ -1,0 +1,93 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/courses/desdigsys2/2015s/dd215s03/tfe4171/exercises/ex_2/lab5
+T_opt
+!s110 1423764112
+VzaZ?]MF1L0k]Wm=FzBYc[0
+04 17 4 work test_bus_protocol fast 0
+=1-0015173b1504-54dcea90-3ffa1-349a
+o-quiet -auto_acc_if_foreign -work work
+n@_opt
+OE;O;10.3c_2;59
+vbus_protocol
+Z1 DXx6 sv_std 3 std 0 22 <EOTafDcUY:cQeO^ICn]m3
+Z2 !s110 1423764110
+!i10b 1
+!s100 co<?e3AcLORk]G1PMRgYc3
+IP7UBE8a[38Bm8oJD>1CDP0
+Z3 V`JN@9S9cnhjKRR_L]QIcM3
+!s105 bus_protocol_v_unit
+S1
+R0
+w1423558206
+8bus_protocol.v
+Fbus_protocol.v
+L0 11
+Z4 OE;L;10.3c_2;59
+r1
+!s85 0
+31
+Z5 !s108 1423764110.582688
+Z6 !s107 bus_protocol_property.sv|bus_protocol.v|test_bus_protocol.sv|
+Z7 !s90 -sv|test_bus_protocol.sv|bus_protocol.v|bus_protocol_property.sv|+acc|+cover|+define+nobugs|
+!i113 0
+Z8 !s102 +cover
+Z9 o-sv +acc +cover -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z10 !s92 -sv +acc +cover +define+nobugs -L mtiAvm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+vbus_protocol_property
+R1
+R2
+!i10b 1
+!s100 e=i>cmengU:YH0hBPGfM90
+IK08OIV0:3NSI4j9iad3bQ1
+R3
+!s105 bus_protocol_property_sv_unit
+S1
+R0
+w1423763254
+8bus_protocol_property.sv
+Fbus_protocol_property.sv
+L0 4
+R4
+r1
+!s85 0
+31
+R5
+R6
+R7
+!i113 0
+R8
+R9
+R10
+vtest_bus_protocol
+R1
+R2
+!i10b 1
+!s100 Z@iS01UE@<89KBRDP<kLF0
+Iz>]b<l4zWD70akCZeK7BE0
+R3
+!s105 test_bus_protocol_sv_unit
+S1
+R0
+w1423558651
+8test_bus_protocol.sv
+Ftest_bus_protocol.sv
+L0 4
+R4
+r1
+!s85 0
+31
+R5
+R6
+R7
+!i113 0
+R8
+R9
+R10
