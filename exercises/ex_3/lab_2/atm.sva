@@ -1,0 +1,39 @@
+// @lang=sva @ts=2
+
+module atm_property_suite(clk, error_i, multiple_i, correct_o, dismiss_o);
+
+input logic clk, error_i, multiple_i, correct_o, dismiss_o;
+
+// property definitions
+
+property dis_cor;
+	@(posedge clk) dismiss_o || correct_o |-> !correct_o || !dismiss_o;
+endproperty
+
+property errno;
+	@(posedge clk) !error_i |-> !(correct_o || dismiss_o);
+endproperty
+
+property mis_dis;
+	@(posedge clk) error_i & multiple_i |-> dismiss_o;
+endproperty
+
+property first_err;
+	@(posedge clk) error_i & !multiple_i & !$past(error_i) |-> correct_o;
+endproperty
+
+property second_err;
+	@(posedge clk) error_i & multiple_i & $past(error_i) |-> dismiss_o;
+endproperty
+
+prop_dis_cor: assert property (dis_cor);
+prop_errno: assert property (errno);
+prop_mis_dis: assert property (mis_dis);
+prop_first_err: assert property (first_err);
+prop_second_err: assert property (second_err);
+
+endmodule
+
+// bind the verification IP to the design
+
+bind atm atm_property_suite inst_atm_property_suite(.*);
