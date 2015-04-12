@@ -24,7 +24,6 @@ module bus_protocol_property (input bit clk, dValid, dAck, reset,
                    and until dAck goes high.
           --------------------------------------------------*/
 `ifdef check2
-
         property checkdataValid;
          @(posedge clk) disable iff (reset)
 	  @(posedge clk) $rose(dValid) |-> !$isunknown(data) && $stable(data) s_until_with $rose(dAck);

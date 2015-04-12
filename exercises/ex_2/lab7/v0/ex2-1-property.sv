@@ -84,39 +84,9 @@ else $display($stime,,,"\t\tVALIDI2 CHECK FAIL:: validi=%b valido=%b \n",
  *       two cycles back, b is data_in one cycle back, and c is the present data_in
  *
  * ------------------------------------ */
-
-sequence seq_a;
-  validi[*1];
-endsequence
-
-sequence seq_aa;
-  validi[*1] ##0 $fell(validi);
-endsequence
-
-sequence seq_b;
-  validi[*2];
-endsequence
-
-sequence seq_c;
-  validi[*3];
-endsequence
-
-sequence seq_complete;
-  validi[*3] ##0 $fell(validi);
-endsequence
-
-sequence check_a;
-  int a;
-  int b;
-  int c;
-  (seq_a, a=data_in) ##1 (seq_a, b=data_in) ##1 (seq_a, c=data_in) ##1 (data_out == (a*b + c));
-  // (seq_complete, a=data_in) ##1 (seq_complete, b=data_in) ##1 (seq_complete, c=data_in) ##1 (data_out == (a*b + c));
-  // (seq_a, a=data_in) ##0 (seq_a, b=data_in) ##0 (seq_c, c=data_in) ##1 (data_out == (a*b + c));
-endsequence
-
 `ifdef check4
 property validi2_asserted;
-  @(posedge clk) $rose(validi) |-> check_a;
+  @(posedge clk) $rose(valido) |-> data_out == ($past(data_in,3) * $past(data_in,2)) + $past(data_in,1);
 endproperty
 
 validi2_check: assert property(validi2_asserted)
