@@ -1,4 +1,0 @@
-make[1]: Entering directory `/home/courses/desdigsys2/2015s/dd215s03/tfe4171/exercises/ex_5/examples/Examples/Hello_SystemC'
-../Makefile:27: include ../Makefile.defs
-../Makefile.defs:32: *** The SYSTEMC environment variable is not set.  Stop.
-make[1]: Leaving directory `/home/courses/desdigsys2/2015s/dd215s03/tfe4171/exercises/ex_5/examples/Examples/Hello_SystemC'

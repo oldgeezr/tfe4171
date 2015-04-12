@@ -1,5 +1,0 @@
-eval_update.o: eval_update.cpp
-main.o: main.cpp
-eval_update.o: eval_update.cpp 
-main.o: main.cpp eval_update.h
-
