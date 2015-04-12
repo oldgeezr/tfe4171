@@ -1,0 +1,220 @@
+#BEGIN README
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+LEGAL
+  $Copyright: (c)2004 Eklectic Ally Inc. All Rights Reserved $
+  $Info: Please see EKLECTIC_LICENSE for futher information. $
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+DESCRIPTION
+  This directory contains a number of examples of SystemC code. These
+  are indexed here, and individually have their own documentation
+  embedded as comments for each source file.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SPECIAL NOTE
+  At version 1.0 of this archive, it is recognized that there are a few
+  rough spots in the released code. They will be addressed in an upcoming
+  release version 1.1. Please check back for an update around the end of
+  June 2004. We apologize for the inconvenience. You should find the material
+  present to be adequate to understanding with some additional struggle. The
+  better you understand C++, the less the struggle. This note was added as a
+  result of reviewer comments.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+PREREQUISITES
+  The following are required to run these examples:
+  1. SystemC 2.0.1 or System 2.1 (preferred)
+  2. Boost.org library (for fifo_of_smart_ptr)
+  3. C++ compiler (GNU gcc preferred)
+
+OPTIONAL
+  4. make (GNU gmake suggested)
+  5. C++ debugger (suggest GNU gdb & ddd)
+  6. Waveform viewer (suggest gtkwave)
+  7. Language sensitive editor (vim, emacs or nedit)
+
+TIP
+  The directory ch/ contains links to all the labs with an numeric
+  prefix to indicate how they relate to the exercises in the book.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+HOW TO RUN
+  Assuming you have GNU make you can run examples either from the top-level
+  (here), or within each example's corresponding directory. 
+
+  First, set the environment variable SYSTEMC to point to your local 
+  installation of SystemC.
+
+  For C-shell, this looks like:
+  
+    setenv SYSTEMC /some/path/to/systemc
+
+  For BASH or SH:
+
+    export SYSTEMC=/some/path/to/systemc
+  
+  Verify the variable is set correctly with:
+
+    ls $SYSTEMC/include/systemc
+
+  You should see something like:
+
+    communication/
+    datatypes/
+    kernel/
+    packages/
+    qt/
+    tracing/
+    utils/
+
+  From the top, use:
+
+    make all
+
+  -or-
+
+    make EXAMPLE_NAME
+
+  Within an example directory, use:
+
+    make
+
+  For examples using the Boost library (available from www.boost.org),
+  you will need to set the BOOST environment variable.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+EXERCISE vs EXAMPLE directory name:
+| ----------------------------------
+| Chapter 3: Overview of SystemC
+| ----------------------------------
+| 3.1   Hello_SystemC
+| ----------------------------------
+| Chapter 4: Data types
+| ----------------------------------
+| 4.1a  datatypes
+| 4.1b  uni_string_rep
+| 4.2   
+| 4.3   
+| 4.4   addition
+| 4.x1  sparse_memory_map
+| 4.x2  bit_ops
+| 4.x3  logic
+| ----------------------------------
+| Chapter 5: Modules
+| ----------------------------------
+| 5.1   simple_process_ex
+| 5.2   simple_process_ex
+| 5.3   engine_time
+| 5.4   simple_process_ex
+| 5.5   
+| 5.x1  eval_update
+| ----------------------------------
+| Chapter 6: Time
+| ----------------------------------
+| 6.1   time_flies
+| 6.2   time_flies
+| 6.3   time_flies
+| ----------------------------------
+| Chapter 7: Concurrency (events)
+| ----------------------------------
+| 7.1   turn_of_events
+| 7.2   gas_station
+| 7.3   method_delay
+| 7.4   next_trigger
+| 7.5a  event_filled
+| 7.5b  event_filled   (version 2.1)
+| ----------------------------------
+| Chapter 8: Basic Channels (Software)
+| ----------------------------------
+| 8.1   mutex_ex
+| 8.2   semaphore_ex
+| 8.3   fifo_fir
+| 8.4   fifo_of_ptr
+| 8.5   fifo_of_smart_ptr (env BOOST)
+| ----------------------------------
+| Chapter 9: Evaluate-Update Channels (Signals)
+| ----------------------------------
+| 9.1   signal_ex
+| 9.2   buffer_ex
+| 9.3   danger_ex
+| 9.4   resolved_ex
+| 9.5   SimulationEngine
+| 9.x1  shift_register
+| ----------------------------------
+| Chapter 10: Structure (Hierarchy)
+| ----------------------------------
+| 10.1  sedan
+| 10.2  convertible
+| 10.x1 templates
+| ----------------------------------
+| Chapter 11: Communications (Ports)
+| ----------------------------------
+| 11.1  video_mix
+| 11.2  equalizer_ex
+| ----------------------------------
+| Chapter 12: More on Ports
+| ----------------------------------
+| 12.1  static_sensitivity
+| 12.2  connections
+| 12.x1 static_error
+| 12.x2 export_ex      (version 2.1)
+| 12.x3 switch
+| 12.x4 lfsr_ex
+| ----------------------------------
+| Chapter 13: Custom Channels and Data
+| ----------------------------------
+| 13.1  interrupt
+| 13.2  pcix
+| 13.3  heartbeat
+| 13.4  adapt
+| 13.5  hier_chan
+| 13.x1 primitive
+| ----------------------------------
+| Chapter 14: Advanced Topics
+| ----------------------------------
+| 14.1  clock_gen
+| 14.2  processor
+| 14.3  varports
+| 14.4  manage
+| 14.5  cruisin
+| 14.6  wave (gtkwave or equiv)
+| 14.7  tracing
+| 14.8  simple_spawn   (version 2.1)
+| 14.9  Fork           (version 2.1)
+| 14.10 report         (version 2.1)
+| ----------------------------------
+
+| 99.x1 async_mem
+| 99.x1 function_template
+| 99.x1 jalopy
+| 99.x1 method_fifo_fir
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+FILES
+  * DIRECTORY                 SHORT DESCRIPTION
+  - ~~~~~~~~~ --------------- ~~~~~~~~~~~~~~~~~
+  R Makefile ---------------- default makefile
+  R Makefile.defs ----------- compilation rules
+  R Makefile.ex ------------- phony targets for examples
+
+  * LEGEND: C = complete, D = documented, R = runs,  S = started
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ACKNOWLEDGEMENTS
+  The authors would like to acknowledge the following individuals for their
+  help in reviewing the examples:
+
+  Steve Talle <stalle@austin.rr.com>, hardware designer
+  Ron Goodstein <rongood@world.std.com>, First Shot Logic Simulation & Design
+
+SUPPORT
+  Should you have questions or issues about this archive, you may direct
+  questions to SCFTGU@EklecticAlly.com. We will answer questions on an as
+  available basis. Problems with the examples will also be addressed, and
+  update may be released from time to time. Eklectic Ally, Inc. is also
+  available for paid training and consulting should your needs be deeper.
+  For consulting information, you may visit our website or contact us at
+  sales@EklecticAlly.com.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#END $Id: README,v 1.11 2004/05/07 13:51:24 dcblack Exp $

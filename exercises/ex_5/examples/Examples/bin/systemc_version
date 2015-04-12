@@ -1,0 +1,103 @@
+#!/usr/bin/perl
+
+=pod
+
+=head1 NAME
+
+B<systemc_version> - determine version of SystemC in use
+
+=head1 SYNOPSIS
+
+B<systemc_version> [I<OPTIONS>]
+
+=head1 DESCRIPTION
+
+This simple tool attempts to determine the version of SystemC
+installed by examining C<$SYSTEMC/include/systemc/kernel/sc_ver.h>.
+
+=head1 OPTIONS
+
+=over
+
+=item B<-full>
+
+Full (e.g. 2.0.1). Affects -var.
+
+=item B<-q>
+
+Quiet
+
+=item B<-sq>
+
+Squeezed into a single integer (e.g. 2.1.0 -> 210).
+
+=item B<-us>
+
+Underscores instead of decimal points (e.g. 2.0.1 -> 2_0_1)
+
+=item B<-var>
+
+As a variable name suitable for #define (e.g. 2.0.1 -> SYSTEMC_V2_0)
+
+=back
+
+=cut
+
+sub Die {
+  printf "FATAL: %s\n",$_[0];
+  exit 1;
+};
+
+# Parse command-line
+my $arg;
+my $min = "2.0.1";
+while (@ARGV) {
+  $arg = shift @ARGV;
+  if ($arg eq '_' or $arg eq '-us') {
+    $OPT{-us} = 1;
+  } elsif ($arg eq '-full') {
+    $OPT{-full} = 1;
+  } elsif ($arg eq '-var') {
+    $OPT{-var} = 1;
+  } elsif ($arg eq '-sq') {
+    $OPT{-sq} = 1;
+  } elsif ($arg eq '-q') {
+    $OPT{-q} = 1;
+  } else {
+  }#endif
+}#endwhile
+
+# Find location of SystemC
+my $SYSTEMC;
+$SYSTEMC = $ENV{'SYSTEMC'};
+$SYSTEMC = $ENV{'SYSTEMC_HOME'} if $SYSTEMC eq '';
+&Die("SYSTEMC environment variable is undefined") if $SYSTEMC eq '';
+
+my $api_version_file = $SYSTEMC.'/include/sysc/kernel/sc_ver.h';
+
+open(API_VERSION,"<$api_version_file") 
+  or &Die("Unable to read $api_version_file!!?");
+
+# Scan for definition of API version
+my $api_version = "2_0_1";
+while (<API_VERSION>) {
+  next unless m/#define\s+SC_API_VERSION_STRING\s+sc_api_version_(\w+)/;
+  $api_version = $1;
+  last;
+}#endwhile <API_VERSION>
+close(API_VERSION);
+
+# Massage format of variable as directed by command-line options
+# Remove third rank
+$api_version =~ s/(\d+_\d+)_\d+$/$1/ if defined $OPT{-var} and not defined $OPT{-full};
+# Remove all underscores (squeeze)
+$api_version =~ s/_//g if defined $OPT{-sq};
+# Create a variable name suitable for use in make or environment
+$api_version =~ s/^/SYSTEMC_V/ if defined $OPT{-var};
+# Change underscores to decimals
+$api_version =~ s/_/./g if not (defined $OPT{-var} and (defined $OPT{-var} or defined $OPT{-us}));
+
+# Announce results and exit successfully
+exit 0 if defined $OPT{-q};
+printf "%s\n",$api_version;
+exit 0;

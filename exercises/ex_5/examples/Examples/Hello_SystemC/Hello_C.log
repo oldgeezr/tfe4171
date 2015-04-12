@@ -1,0 +1,3 @@
+gcc  -o Hello_SystemC/Hello_C.x Hello_SystemC/Hello_C.c
+./Hello_SystemC/Hello_C.x
+Hello C

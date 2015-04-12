@@ -1,0 +1,17 @@
+#!/usr/bin/perl -n
+#
+# $Info: filter - extract log to text $
+#
+# DESCRIPTION
+#   Simple filter to extract data into
+#   file suitable for manipulation by a
+#   spreadsheet (e.g. Excel).
+#
+# SYNOPSIS
+#   filter $NAME.log >$NAME.csv
+
+next unless m/^(DATA|IN|OUT): /;
+s/.*=\s+//;
+chomp;
+m/\s+/;
+printf "%f,%f\n",$`,$';

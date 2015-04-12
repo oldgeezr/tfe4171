@@ -1,0 +1,79 @@
+#!/usr/bin/perl
+
+# Simple script to analyze examples
+
+# Stuff to ignore in line counts
+@IGNORE = (
+  qr{^//\s*(FILE|BEGIN):},
+  qr{^//# vim600:},
+  qr{^#include <systemc.h>},
+  qr{^//~~~~},
+  qr{^//\s*See},
+  qr{^//Portions COPYRIGHT},
+  qr{^//\s*Permission granted},
+  qr{^//\s*acknowledgement of Ek},
+  qr{^//END \$Id  qr{^\s*$},
+);
+
+$lpp = 37.0; # lines per printed page
+$imf = 0; # include Makefiles?
+
+# Obtain list of valid examples
+$mc = 0;
+open MKX,"<Makefile.ex";
+while (<MKX>) {
+  if (m/^EXAMPLES:/..m/^  EOL$/) {
+    next if m/EXAMPLES:/;
+    last if m/^  EOL$/;
+    m/\w+/;
+    push @examples,$&;
+    $mc = length $& if length $& > $mc;
+  }#endif
+}#endwhile
+close MKX;
+
+# Examine each example directory
+# an count source files & lines of code
+for $ex (@examples) {
+  opendir EXD,$ex;
+  @files = readdir EXD;
+  closedir EXD;
+  for $file (@files) {
+    next unless $file =~ m/\.(c|cc|cpp|cxx|dat|h|inc|scr|v)$/;
+    open FILE,"<$ex/$file";
+    # Count lines of code
+    $lc = 0;
+    LINE:while (<FILE>) {
+      for $re (@IGNORE) {
+        next LINE if m/$re/;
+      }#endfor
+      ++$lc;
+    }#endwhile
+    $src{$ex}->{$file}=$lc;
+    $src{$ex}->{'-fc'}++;
+    $src{$ex}->{'-lc'}+=$lc;
+    $src{$ex}->{'-pc'}+=int($lc/$lpp+0.9999);
+    close FILE;
+  }#endfor
+}#endfor
+
+# Output statistics
+$i=1;
+printf "%s\n\n",scalar localtime;
+printf "%s\t%s\t%-${mc}.${mc}s\t%s\t%s\n",'index','example','files','lines','pages';
+for $ex (sort keys %src) {
+  printf "%d\t%-${mc}.${mc}s\t%d\t%d\t%d\n",$i++,$ex,$src{$ex}->{'-fc'},$src{$ex}->{'-lc'},$src{$ex}->{'-pc'};
+  $tfc+=$src{$ex}->{'-fc'};
+  $tlc+=$src{$ex}->{'-lc'};
+  $tpc+=$src{$ex}->{'-pc'};
+}#endfor
+printf "\n";
+printf "Total examples: %d\n",scalar keys %src;
+printf "Total files: %d\n",$tfc;
+printf "Total lines of code: %d\n",$tlc;
+printf "Total book pages: %d (assuming %d lines per page)\n",$tpc,$lpp;
+printf "\n";
+printf "EOF\n";
+
+exit 0;
+__END__

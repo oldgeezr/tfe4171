@@ -1,0 +1,9 @@
+make[2]: Entering directory `/home/donnam/dds2/systemc/examples/Examples/time_flies'
+../Makefile:27: include ../Makefile.defs
+g++  -O0 -ggdb -Wno-deprecated -DDEBUG_SYSTEMC -fpermissive -DSYSTEMC_V2_3  -I. -I.. -I/eda/tools/systemc-2.3.0/include -I/include  -M main.cpp time_flies.cpp >> Makefile.deps
+make[2]: Leaving directory `/home/donnam/dds2/systemc/examples/Examples/time_flies'
+make[2]: Entering directory `/home/donnam/dds2/systemc/examples/Examples/time_flies'
+../Makefile:27: include ../Makefile.defs
+g++  -O0 -ggdb -Wno-deprecated -DDEBUG_SYSTEMC -fpermissive -DSYSTEMC_V2_3  -I. -I.. -I/eda/tools/systemc-2.3.0/include -I/include  -c time_flies.cpp
+g++  -O0 -ggdb -Wno-deprecated -DDEBUG_SYSTEMC -fpermissive -DSYSTEMC_V2_3  -I. -I.. -I/eda/tools/systemc-2.3.0/include -I/include  -L. -L.. -L/eda/tools/systemc-2.3.0/lib-linux64  -o time_flies.x main.o time_flies.o -pthread -lsystemc -lm   2>&1 | c++filt
+make[2]: Leaving directory `/home/donnam/dds2/systemc/examples/Examples/time_flies'

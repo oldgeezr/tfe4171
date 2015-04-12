@@ -1,0 +1,305 @@
+#!/bin/make -f
+# -*- make -*- vim:syntax=make:tw=72:sw=2:et
+#------------------------------------------------------------------------------
+# To see the following documentation formatted, use:
+#   perldoc Makefile.rules
+#------------------------------------------------------------------------------
+define MAKEFILE_DOCUMENTATION
+
+#######################################################################
+#                                                                     #
+#   ---->>      To read this use: perldoc Makefile.rules    <<----     #
+#                                                                     #
+#######################################################################
+
+=pod
+
+=head1 NAME
+
+B<Makefile.rules> - Generic SystemC makefile rules
+
+=head1 SYNOPSIS
+
+B<make -f Makefile.rules> UNIT={:NAME:} SRCS={:LIST:} {:TARGET:}
+
+or if #included from a Makefile
+
+B<make> [{:TARGET:}]
+
+NOTE - Some local installations of GNU make rename it to B<gmake>.
+
+=head1 DESCRIPTION
+
+This file, Makefile.rules, contains rules for compiling  and running
+SystemC under UNIX using gcc. It has a variety of pseudo-targets
+(targets that do not correspond directly to creation of a like named
+file).
+
+=head1 USAGE
+
+You will likely wish to set the following variables:
+
+=over
+
+=item *
+
+UNIT, establishes the basename for the executable
+
+=item *
+
+SRCS, a list of source files (.cpp) to be compiled
+
+=item *
+
+BOOST_LIBS, an optional list of boost libraries you use
+
+BOOST_HOME points to the directory where boost is installed. 
+It is assumed that the following hierarchy exists:
+
+ ${BOOST_HOME}/
+  +- include/
+  |  +- boost/
+  +- lib/
+
+=back
+
+=head1 ENVIRONMENT
+
+Assumes GNU make.
+
+SYSTEMC or SYSTEMC_HOME environment variable set properly (points to
+installation of SystemC).
+
+=head1 EXAMPLES
+
+B<make> -f Makefile.rules
+
+B<make> SRCS="top.cpp main.cpp" UNIT=test
+
+=head1 COPYRIGHT
+
+Copyright (C) 2010 scftgu.com. All rights reserved.
+Copyright (C) 2004-2007 ESLX Inc. All rights reserved.
+Portions of original derived from WHDL Inc.
+
+=head1 AUTHOR
+
+David C Black <dcblack@scftgu.com>
+
+=cut
+
+endef
+
+
+# Make sure we have a unit specified. Warn and use directory if not.
+ifndef UNIT
+ ifdef MODULE
+  UNIT:=${MODULE}
+ else
+  UNIT:=$(notdir $(patsubst %/,%,$(shell /bin/pwd)))
+  $(warning Using directory name '${UNIT}' for UNIT)
+ endif
+endif
+
+# Make sure source files specified
+ifeq "$(wildcard $(SRCS))" ""
+  $(error No valid .cpp files specified for SRCS in Makefile)
+endif
+HDRS:=$(wildcard $(patsubst %.cpp,%.h,$(SRCS)))
+
+# Find SystemC home
+ifndef SYSTEMC
+  ifdef SYSTEMC_HOME
+    SYSTEMC := $(SYSTEMC_HOME)
+  endif
+endif
+ifndef SYSTEMC
+  ifdef COWAREHOME
+    SYSTEMC := $(COWAREHOME)/common
+  endif
+endif
+ifndef SYSTEMC
+  $(error The SYSTEMC environment variable is not set)
+endif
+ifeq "$(wildcard $(SYSTEMC)/include)" ""
+  $(error The SYSTEMC environment variable does not point to a valid directory)
+endif
+
+# Determine what platform is running
+PLATFORM:=$(shell uname -s)
+MACHINE:=$(shell uname -m)
+OS_FOUND:=${PLATFORM}-${MACHINE}
+ifeq "${PLATFORM}" "SunOS"
+  TARGET_ARCH := gccsparcOS5
+endif
+ifeq "${PLATFORM}" "Linux"
+ ifeq "${MACHINE}" "x86_64"
+  TARGET_ARCH := linux64
+ else
+  TARGET_ARCH := linux
+ endif
+endif
+ifeq "${PLATFORM}" "CYGWIN_NT-5.1"
+  TARGET_ARCH := cygwin
+  SCV_DLL := ${SYSTEMC}/lib-cygwin/libscv.dll
+endif
+ifeq "${PLATFORM}" "Darwin"
+  ifeq "${MACHINE}" "i386"
+    TARGET_ARCH := macosx
+  else
+    TARGET_ARCH := macosx
+  endif
+endif
+ifndef TARGET_ARCH
+  $(error This makefile only supported on Linux, Cygwin, Darwin or SunOS. I do not recognize platform ${OS_FOUND})
+endif
+
+SHARED_DIR := $(firstword $(wildcard $(addsuffix /shared,.. ../..  ../../.. ../../../.. ${CLASS_HOME})))
+ifdef SHARED
+  SHARED_PATHS := $(wildcard $(addprefix $(SHARED_DIR)/src/,. $(SHARED)))
+endif
+OBJS := $(SHARED_PATHS:.cpp=.o) $(SRCS:.cpp=.o)
+
+# Determine if SCV is used in any of the source files
+ifneq "$(wildcard ${SRCS})" ""
+ $(warning Examining source files)
+ ifneq "$(strip $(shell grep scv.h ${SRCS} ${HDRS}))" ""
+  USING_SCV:=1
+  $(warn Using SCV)
+  SCV_LIB := -lscv
+ endif
+ ifneq "$(strip $(shell grep tlm.h ${SRCS} ${HDRS}))" ""
+  USING_TLM:=1
+  $(warning Using TLM)
+ endif
+ ifneq "$(strip $(shell grep sc_fix ${SRCS} ${HDRS}))" ""
+  USING_FX:=1
+  $(warning Using sc_fix types)
+ endif
+ ifneq "$(strip $(shell grep sc_spawn ${SRCS} ${HDRS}))" ""
+   USING_DYNAMIC:=1
+   $(warning Using dynamic processes)
+ endif
+ ifneq "$(strip $(shell grep boost/ ${SRCS} ${HDRS} ${COMMON_SRCS}))" ""
+   USING_BOOST:=1
+   $(info INFO: Using BOOST library)
+ endif
+endif
+
+OPTS   := -Wno-deprecated $(EXTRA_OPTS)
+# Allow for debug option
+ifndef NDEBUG
+  ifndef DEBUG
+    OPTS += -DDEBUG=1
+  else
+    ifeq "$(DEBUG)" ""
+      OPTS += -DDEBUG=1
+    else
+      OPTS += -DDEBUG=$(DEBUG)
+    endif
+  endif
+endif
+OPTS += -DDEBUG_SYSTEMC
+ifdef USING_FX
+  OPTS += -DSC_INCLUDE_FX
+endif
+ifdef USING_DYNAMIC
+  OPTS += -DSC_INCLUDE_DYNAMIC_PROCESSES
+endif
+ifdef USING_SCV
+  OPTS += -DUSING_SCV
+endif
+ifdef USING_BOOST
+  OPTS += -DBOOST
+endif
+CC     := gcc
+CXX    := g++
+INCDIR := -I. -I.. -I$(SYSTEMC)/include
+INCDIR += $(MY_INCLUDES)
+ifneq "$(wildcard $(SHARED_DIR)/include)" ""
+  $(warn Found $(SHARED_DIR)/include)
+  INCDIR += -I$(SHARED_DIR)/include
+endif
+ifndef COWAREHOME
+  LIBDIR := -L. -L.. -L$(SYSTEMC)/lib-$(TARGET_ARCH)
+else
+  LIBDIR := -L.   -L.. -L$(SYSTEMC)/lib
+endif
+ifdef USING_BOOST
+  INCDIR += -I${BOOST_HOME}/include
+  LIBDIR += -L${BOOST_HOME}/lib
+endif
+
+# -Wa,--32 -march=i386
+
+CC_CMD  := $(CC)  -ggdb -O0 $(OPTS)
+CXX_CMD := $(CXX) -ggdb -O0 $(OPTS)
+LD_CMD  := $(CXX) -ggdb -O0
+LIBS := $(MY_LIBS)
+ifndef COWAREHOME
+  LIBS  +=  $(SCV_LIB) -lsystemc -lm $(EXTRA_LIBS) $(SCV_DLL)
+  SYSTEMC_LIB := $(SYSTEMC)/lib-$(TARGET_ARCH)
+else
+  LIBS  +=  lib/EncDecMessage.o -lsystemc -lm $(EXTRA_LIBS) 
+  SYSTEMC_LIB := $(SYSTEMC)/lib
+endif
+ifdef USING_SCV
+  ifdef SYSTEMC_SCV
+    ifneq "$(SYSTEMC)" "$(SYSTEMC_SCV)"
+      INCDIR += -I${SYSTEMC_SCV}/include
+      LIBDIR += -L$(firstword $(wildcard ${SYSTEMC_SCV}/lib-${TARGET_ARCH} ${SYSTEMC_SCV}/lib))
+    endif
+    export LD_LIBRARY_PATH
+    LD_LIBRARY_PATH+=:$(SYSTEMC)/lib-linux
+  endif
+  LIBS   += -lscv
+endif
+
+DEPS:=dependencies.mk
+
+EXE   := $(UNIT).x
+
+.SUFFIXES: .c .cc .cpp .o .x
+
+.PHONY: run gdb exe objs clean ultraclean distclean
+
+run: $(EXE)
+	time ./$(EXE)
+
+gdb:
+	gdb ./$(EXE)
+
+debug:
+	$(MAKE) DEBUG=1 run
+
+exe: $(EXE)
+
+objs: $(OBJS)
+
+$(EXE): $(OBJS) $(SYSTEMC_LIB)/libsystemc.a 
+	$(CXX_CMD) $(CFLAGS) $(INCDIR) $(LIBDIR) -o $@ $(OBJS) $(LIBS) 2>&1 | c++filt
+
+.cpp.o:
+	$(CXX_CMD) $(CFLAGS) $(INCDIR) -c $<
+
+.cc.o:
+	$(CXX_CMD) $(CFLAGS) $(INCDIR) -c $<
+
+.c.o:
+	@echo "WARNING: Not C++. Compiling C file $<"
+	$(CC_CMD) $(CFLAGS) $(INCDIR) -c $<
+
+clean:
+	@echo "Removing objects, executable, temporaries, cores & log files"
+	rm -fv $(OBJS) *~ $(EXE) core *.log dependencies.mk *.deps
+
+distclean ultraclean: clean
+	@echo "Removing dependencies, waveforms & work files"
+	rm -rfv ${DEPS} *.vcd *.vcd.vpd  vcd_autosave.sav work
+
+${DEPS}:
+	$(CXX_CMD) $(CFLAGS) $(INCDIR) -M $(SRCS) >> ${DEPS}
+
+ifndef COWAREHOME
+include ${DEPS}
+endif

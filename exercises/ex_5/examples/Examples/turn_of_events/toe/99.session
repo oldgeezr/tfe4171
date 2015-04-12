@@ -1,0 +1,12 @@
+window_sizes 1373 1043 206 1161 844 120
+diagrams
+  active  statediagram_ref 128099 // turn-of-events
+    1161 844 86 4 0 0
+end
+show_stereotypes
+selected region_ref 128483 // region
+open
+  state_ref 128611 // right-signal-thread
+  state_ref 128739 // left-signal-thread
+end
+end

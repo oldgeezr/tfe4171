@@ -1,0 +1,14 @@
+D 1 6. The makefiles don't seem to run hierarchically/recursively.
+       - David, can you help me with this?
+~ 2 7. Readme.txt
+       - Started
+D 3 1. Chapter 8 - fifo_of_smart_ptr - I need someone to be tested on a machine with boost
+       - Makefile.rules needed fixing
+D 4 2. Chapter 9 - signal_ex - seems to be incompatible with the gcc version I am using. I need someone to try this one.
+       - Needed a definition for sc_trace on an sc_signal<std::string>
+~ 5 3. Chapter 12 - Cbus - missing Cbus_Debug_if.h. Does anyone know where this is?
+       - Will need to supply
+~ 6 5. Chapter 15 - recording_ex - this code is missing. Does anyone know where this is?
+       - Will need to supply
+~ 7 4. Chapter 14 - processor - issue with ea_pullup.
+       - Bad implementation, will supply a better one

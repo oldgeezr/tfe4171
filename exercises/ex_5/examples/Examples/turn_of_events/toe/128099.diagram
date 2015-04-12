@@ -1,0 +1,95 @@
+format 66
+
+statecanvas 128227 state_ref 128227 // t-o-e
+  show_activities yes region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 39 15 2000 795 715
+end
+statecanvas 128483 state_ref 128483 // turn-knob-thread
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 426 366 2005 117 37
+end
+statecanvas 128611 state_ref 128611 // right-signal-thread
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 617 147 2005 130 37
+end
+statecanvas 128867 state_ref 128867 // stop-signal-thread
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 340 588 2005 127 37
+end
+statecanvas 131299 state_ref 128739 // left-signal-thread
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 127 128 2005 120 37
+end
+transitioncanvas 128995 transition_ref 128099 // signal_right
+  decenter_end 225
+  
+  from ref 128483 z 2006 label "signal_right" xyz 418 223 3000 to point 485 217
+  line 129251 z 2006 to ref 128611
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130659 transition_ref 128867 // right_blinking
+  
+  from ref 128611 z 2006 label "right_blinking" xyz 515 204 3000 to point 544 234
+  line 130787 z 2006 to ref 128483
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130915 transition_ref 128995 // signals_off
+  
+  from ref 128483 z 2006 label "signals_off" xyz 559 249 3000 to point 605 276
+  line 131683 z 2006 to ref 128611
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 131043 transition_ref 129123 // right_off
+  
+  from ref 128611 z 2006 label "right_off" xyz 632 273 3000 to point 679 289
+  line 131171 z 2006 to ref 128483
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 131427 transition_ref 128483 // left_blinking
+  
+  from ref 131299 z 2006 label "left_blinking" xyz 149 319 3000 to point 199 314
+  line 131555 z 2006 to ref 128483
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 131939 transition_ref 129251 // signal_left
+  
+  from ref 128483 z 2006 label "signal_left" xyz 82 263 3000 to point 124 356
+  line 132067 z 2006 to ref 131299
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 132323 transition_ref 129379 // signals_off2
+  
+  from ref 128483 z 2006 label "signals_off2" xyz 220 293 3000 to point 275 285
+  line 132451 z 2006 to ref 131299
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 132579 transition_ref 129507 // left_off
+  
+  from ref 131299 z 2006 label "left_off" xyz 308 268 3000 to ref 128483
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 132707 transition_ref 129635 // signal_stop
+  
+  from ref 128483 z 2006 label "signal_stop" xyz 313 439 3000 to point 349 481
+  line 132835 z 2006 to ref 128867
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 132963 transition_ref 129763 // stop_blinking
+  
+  from ref 128867 z 2006 label "stop_blinking" xyz 352 473 3000 to point 410 489
+  line 133219 z 2006 to ref 128483
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 133091 transition_ref 129891 // signals_off3
+  
+  from ref 128483 z 2006 label "signals_off3" xyz 493 520 3000 to point 494 512
+  line 133347 z 2006 to ref 128867
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 133475 transition_ref 130019 // stop_off
+  
+  from ref 128867 z 2006 label "stop_off" xyz 589 462 3000 to point 632 534
+  line 133603 z 2006 to ref 128483
+  write_horizontally default show_definition default drawing_language default
+end
+end
