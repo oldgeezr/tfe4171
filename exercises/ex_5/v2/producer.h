@@ -6,8 +6,8 @@
  **
  */
 
-#ifndef   	__PRODUCER_H_
-# define   	__PRODUCER_H_
+#ifndef			__PRODUCER_H_
+# define		__PRODUCER_H_
 
 #include "if.h"
 
@@ -98,4 +98,4 @@ public:
 };
 
 
-#endif 	    /* !PRODUCER_H_ */
+#endif			/* !PRODUCER_H_ */

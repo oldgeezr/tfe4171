@@ -6,8 +6,8 @@
 **
 */
 
-#ifndef   	__FIFO_H_
-# define   	__FIFO_H_
+#ifndef			__FIFO_H_
+# define		__FIFO_H_
 
 #include <systemc.h>
 #include "if.h"
@@ -112,4 +112,4 @@ class fifo : public fifo_read_bl_if<char>,
 };
 
 
-#endif 	    /* !__FIFO_H_ */
+#endif			/* !__FIFO_H_ */

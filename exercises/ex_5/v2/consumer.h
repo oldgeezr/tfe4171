@@ -6,8 +6,8 @@
  **
  */
 
-#ifndef   	__CONSUMER_H_
-# define   	__CONSUMER_H_
+#ifndef			__CONSUMER_H_
+# define		__CONSUMER_H_
 
 #include "if.h"
 
@@ -54,4 +54,4 @@ public:
 };
 
 
-#endif 	    /* !__CONSUMER_H_ */
+#endif			/* !__CONSUMER_H_ */

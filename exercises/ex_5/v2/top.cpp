@@ -3,9 +3,9 @@
 ** top.cpp
 **
 ** top level instatiations and simulation control
-** 
+**
 ** Made by Kjetil Svarstad
-** 
+**
 */
 
 #include "fifo.h"
@@ -19,7 +19,7 @@ public:
   fifo fifo_inst;
   producer prod_inst;
   consumer cons_inst;
-  
+
   // constructor for top, sends name to sc_module constructor
   top (sc_module_name name, int size) : sc_module (name) ,
 					// and executes the actual
@@ -27,13 +27,13 @@ public:
 					// the producer and consumer
 					// with their respective
 					// parameter values
-				       fifo_inst ("fifo", size), 
-				       prod_inst ("producer"), 
-				       cons_inst ("consumer") {
+							 fifo_inst ("fifo", size),
+							 prod_inst ("producer"),
+							 cons_inst ("consumer") {
 
     // Connects the producers writep port to the fifo instance
     prod_inst.writep (fifo_inst);
-    
+
     // and then the consumers readp port to the fifo instance
     cons_inst.readp (fifo_inst);
   }
@@ -48,16 +48,16 @@ int sc_main (int argc , char *argv[])  {
 
   if (argc > 1)
     size = atoi(argv[1]);
-  
+
   if (size < 1)
     size = 1;
 
   if (size > 100000)
     size = 100000;
-  
+
   // instantiating top module
   top top1("Top1", size);
-  
+
   // initializing random number generator
   srand ( time(NULL) );
 
