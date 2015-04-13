@@ -1,0 +1,9 @@
+*.o
+*.vcd
+test
+*.swp
+work
+results
+transcript
+*.hex
+*.pdf
