@@ -7,3 +7,5 @@ results
 transcript
 *.hex
 *.pdf
+*.log
+deliverable*
