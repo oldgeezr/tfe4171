@@ -15,7 +15,7 @@ DPx7 utility 9 tools_pkg 0 22 :jd<:SC0d>We0XR=XMKA22
 Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
 w1423428668
-Z4 d/home/courses/desdigsys2/2015s/dd2master/termproject/hdlc/trunk/code
+Z4 d/home/courses/desdigsys2/2015s/dd215s03/tfe4171/prj/hdlc/trunk/code
 8../code/mem_pkg.vhd
 F../code/mem_pkg.vhd
 l0
@@ -24,37 +24,37 @@ VBeW6Q8_:9Y4<i0mLNNRMI2
 !s100 km5R<LD^Em8cn60;eR]YI1
 Z5 OE;C;10.3c_2;59
 32
-Z6 !s110 1427144570
+!s110 1428923376
 !i10b 1
-!s108 1427144570.862355
-!s90 -work|memlib|../code/mem_pkg.vhd|
+!s108 1428923376.060184
+!s90 -reportprogress|300|-work|memlib|../code/mem_pkg.vhd|
 !s107 ../code/mem_pkg.vhd|
 !i113 0
-Z7 o-work memlib
-Z8 tExplicit 1
+Z6 o-work memlib
+Z7 tExplicit 1
 Espmem_ent
-Z9 w1423406400
+Z8 w1423406400
 R1
 R0
 R2
 R3
 R4
-Z10 8../code/spmem.vhd
-Z11 F../code/spmem.vhd
+Z9 8../code/spmem.vhd
+Z10 F../code/spmem.vhd
 l0
 L69
 V7jV9mQVm`mYa@TMNG1j6z1
 !s100 _3APCBm==<ba`DGmdCMIC3
 R5
 32
-R6
+Z11 !s110 1428923375
 !i10b 1
-Z12 !s108 1427144570.503507
-Z13 !s90 -work|memlib|../code/spmem.vhd|
+Z12 !s108 1428923375.328069
+Z13 !s90 -reportprogress|300|-work|memlib|../code/spmem.vhd|
 Z14 !s107 ../code/spmem.vhd|
 !i113 0
+R6
 R7
-R8
 Aspmem_beh
 R1
 R0
@@ -67,11 +67,11 @@ V5heDOlImgQK1lLLlc0>C<1
 !s100 ELZ2jRDAQNSBVE[ZY`bYi1
 R5
 32
-R6
+R11
 !i10b 1
 R12
 R13
 R14
 !i113 0
+R6
 R7
-R8
